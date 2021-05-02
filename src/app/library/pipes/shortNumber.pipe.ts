@@ -9,19 +9,19 @@ export class ShortNumberPipe implements PipeTransform {
         else {
             // hundreds
             if (value <= 999) {
-                return checkDedcimal(value) + '';
+                return checkDecimal(value) + '';
             }
             // thousands
-            else if (value >= 1000 && value <= 999999) {
-                return checkDedcimal(value / 1000) + 'K';
+            else if (value >= 1000 && value <= 99999) {
+                return checkDecimal(value / 1000) + 'K';
             }
-            // millions
-            else if (value >= 1000000 && value <= 999999999) {
-                return checkDedcimal(value / 1000000) + 'M';
+            // lakhs
+            else if (value >= 100000 && value <= 9999999) {
+                return checkDecimal(value / 100000) + 'L';
             }
-            // billions
-            else if (value >= 1000000000 && value <= 999999999999) {
-                return checkDedcimal(value / 1000000000) + 'B';
+            // crores
+            else if (value >= 10000000 && value <= 99999999999) {
+                return checkDecimal(value / 10000000) + 'Cr';
             }
             else {
                 return String(value);
@@ -30,6 +30,6 @@ export class ShortNumberPipe implements PipeTransform {
     }
 }
 
-function checkDedcimal(value): number {
+function checkDecimal(value): number {
     return String(value).includes('.') ? value.toFixed(2) : value ;
 }
