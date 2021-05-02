@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShortNumberPipe } from './shortNumber.pipe';
+import { SearchPipe } from './search.pipe';
 
 @NgModule({
-  declarations: [ShortNumberPipe],
+  declarations: [ShortNumberPipe, SearchPipe],
   imports: [
-CommonModule
+    CommonModule
   ],
   exports: [
-    ShortNumberPipe
+    ShortNumberPipe,
+    SearchPipe
   ]
 })
 export class PipesModule { }

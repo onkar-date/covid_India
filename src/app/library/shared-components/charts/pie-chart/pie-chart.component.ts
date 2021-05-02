@@ -23,9 +23,9 @@ export class PieChartComponent implements OnInit {
   pieChartLegend = true;
   pieChartPlugins = [];
   pieChartColors = [
-    // {
-    //   backgroundColor: ['#007bff ', '#28a745', '#dc3545']
-    // },
+    {
+      backgroundColor: ['#1ac2ed', '#b1e542', '#b0b2b3']
+    },
   ];
   constructor() {
     monkeyPatchChartJsTooltip();

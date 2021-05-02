@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { tableHelper } from 'src/app/shared/helpers/table.helper';
@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   covidData: ICovidData = null;
   sortDirection = [];
   stateNames: string[] = [];
+  searchKey = '';
   constructor(
     private covidService: CovidService,
     private modalService: NgbModal,
@@ -49,11 +50,10 @@ export class HomeComponent implements OnInit {
     await this.initiate();
   }
 
-  async initiate() {
+  initiate(): void {
     this.tableRows = this.getTableRows();
     this.pieChartData = this.getPieChartData();
-    console.log(this.tableRows);
-    
+    this.scrollToView();
   }
 
   getTableRows(): Array<any> {
@@ -74,15 +74,15 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  showStateData(selectedState, el: HTMLElement): void {
+  showStateData(selectedState): void {
     if (this.state) {
-      this.router.navigate([`../${selectedState.name}`], { relativeTo: this.activatedRoute});
+      this.router.navigate([`../${selectedState}`], { relativeTo: this.activatedRoute});
     } else {
-      this.router.navigate([`./${selectedState.name}`], { relativeTo: this.activatedRoute});
+      this.router.navigate([`./${selectedState}`], { relativeTo: this.activatedRoute});
     }
-    this.state = selectedState.name;
+    this.state = selectedState;
     this.initiate();
-    el.scrollIntoView({behavior: 'smooth', inline: 'nearest'});
+    this.searchKey = '';
     return;
   }
 
@@ -93,9 +93,15 @@ export class HomeComponent implements OnInit {
   }
 
   sort(sortBy, order, i): void {
-    console.log(sortBy);
     sortData(this.tableRows, sortBy, order);
     this.sortDirection[i] = order === 'asc' ? 'desc' : 'asc';
+  }
+
+  scrollToView(): void {
+    const el: HTMLElement = document.getElementById('mainView');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', inline: 'nearest' });
+    }
   }
 
 }

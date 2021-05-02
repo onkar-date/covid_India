@@ -1,0 +1,12 @@
+$app-bg: #003346;
+body{
+    background: $app-bg !important;
+}
+
+.app-bg{
+    background: $app-bg !important;
+}
+
+.bg-dark {
+    background-color: $app-bg !important;
+}

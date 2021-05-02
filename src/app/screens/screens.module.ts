@@ -7,6 +7,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { PipesModule } from '../library/pipes/pipes.module';
 import { SharedComponentsModule } from '../library/shared-components/shared-components.module';
 import { DistrictDataModalComponent } from './district-data-modal/district-data-modal.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { DistrictDataModalComponent } from './district-data-modal/district-data-
     ScreensRoutingModule,
     PipesModule,
     SharedComponentsModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    FormsModule
   ],
 })
 export class ScreensModule { }

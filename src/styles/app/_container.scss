@@ -1,23 +1,21 @@
 .stats-container{
-    background-image: url('../../assets/images/card-bg4.jpg');
+    background-image: url('../../assets/images/card-bg9.jpg');
     background-size: cover;
-    height: 100%;
     .numeric-stats{
-        height: 15rem;
         .stat{
-            width: 10rem;
+            flex: 1 1 0px;
+            margin: 2rem;
             background-size: cover;
-            height: 100%;
-            margin-right: 2rem;
-            margin-top: 2rem;
             box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
             transition: all 0.5s ease;
+            text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em blue;
+            cursor: pointer;
         }
         .stat:hover{
             transform: scale(1.1);
         }
         .active{
-            background-image: url('../../assets/images/active.jpg');
+            background-image: url('../../assets/images/active1.jpg');
             color: $white;
         }
         .recovered{
