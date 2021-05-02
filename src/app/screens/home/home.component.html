@@ -1,0 +1,90 @@
+<app-jumbotron
+    [covidData]="covidData"
+    (showStateDataEvent)="showStateData($event, scrollToVIew)">
+</app-jumbotron>
+<div class="container-fluid">
+    <div class="row p-3" #scrollToVIew>
+        <div class="col-12 mb-3" *ngIf="pieChartData">
+            <h3 class="card-title">
+                {{state ? state : 'I N D I A'}}
+            </h3>
+            <div class="card border-0 stats-container">
+                <div class="row no-gutters card-body d-flex">
+                    <div class="d-flex numeric-stats col-md-7">
+                        <div class="stat active p-4 d-flex flex-column border justify-content-around align-items-center">
+                            <h4>Active</h4>
+                            <h3 class="mb-0">{{pieChartData.active | shortNumber}}</h3>
+                        </div>
+                        <div class="stat recovered p-4 d-flex flex-column border justify-content-around align-items-center">
+                            <h4>Recovered</h4>
+                            <h3 class="mb-0">{{pieChartData.recovered | shortNumber}}</h3>
+                        </div>
+                        <div class="stat deaths p-4 d-flex flex-column border justify-content-around align-items-center">
+                            <h4>Deaths</h4>
+                            <h3 class="mb-0">{{pieChartData.deaths | shortNumber}}</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <app-pie-chart [totals]="pieChartData">
+                        </app-pie-chart>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            
+
+        </div>
+        <div class="col-12">
+            <table class="table table-bordered table-striped table-light">
+                <thead>
+                    <tr>
+                        <th *ngFor="let header of tableHeaders; let i = index">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>{{header}}</span>
+                                <button class="no-style" (click)="sort(header, sortDirection[i], i)">
+                                    <i class="fa fa-sort-desc" aria-hidden="true" *ngIf="sortDirection[i]==='asc'"></i>
+                                    <i class="fa fa-sort-asc" aria-hidden="true" *ngIf="sortDirection[i]==='desc'"></i>
+                                </button>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="covidData; else tablePlaceholder">
+                    <tr *ngFor="let row of tableRows | slice: (page-1) * pageSize : page * pageSize">
+                        <td>
+                            <button class="no-style text-primary" (click)="showDistrictData(row)">
+                                <u>{{row.name | shortNumber}}</u>
+                            </button>
+                        </td>
+                        <td>{{row.totals.confirmed | shortNumber}}</td>
+                        <td>{{row.totals.active | shortNumber}}</td>
+                        <td>{{row.totals.recovered | shortNumber}}</td>
+                        <td>{{row.totals.deaths | shortNumber}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12 d-flex justify-content-end" *ngIf="tableRows.length">
+            <ngb-pagination [collectionSize]="tableRows.length" [(page)]="page"></ngb-pagination>
+        </div>
+    </div>
+</div>
+
+
+
+<ng-template #tablePlaceholder>
+    <tbody class="ph-table">
+        <tr *ngFor="let i of [].constructor(7)">
+            <td scope="row" *ngFor="let i of [].constructor(5)">
+                <div class="ph-item">
+                    <div class="ph-col-12">
+                        <div class="ph-row">
+                            <div class="ph-col-12"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</ng-template>

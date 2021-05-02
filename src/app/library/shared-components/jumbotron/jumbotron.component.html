@@ -1,0 +1,30 @@
+<div class="jumbotron jumbotron-fluid text-white">
+    <div class="container">
+      <h1 class="display-4">Stay Home, Stay Safe!!</h1>
+      <p>
+          <span>
+            CORONA ( COVID 19 ) HELPLINE :  011-23978046 OR 1075 
+          </span>
+          <br>
+          <span>
+            MAHARASHTRA COVID HELPLINE : 022-22027990
+          </span>
+      </p>
+    </div>
+    <br><br>
+    <div class="container-fluid" *ngIf="covidData?.states">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                Select state to view COVID cases.
+            </div>
+            <div class="col-12 d-flex flex-wrap justify-content-between">
+                <button
+                (click)="showStateData(state)"
+                class="m-2 text-white no-style shadow"
+                *ngFor="let state of covidData.states">
+                    <h5>{{state.name}}</h5>
+                </button>
+            </div>
+        </div>
+    </div>
+  </div>
