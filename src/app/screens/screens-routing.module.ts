@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DataSourceComponent } from './data-source/data-source.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'india/:state',
     component: HomeComponent
+  },
+  {
+    path: 'sources',
+    component: DataSourceComponent
   }
 ];
 

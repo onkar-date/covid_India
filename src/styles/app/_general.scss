@@ -1,4 +1,10 @@
 $app-bg: #003346;
+
+html, body{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
 body{
     background: $app-bg !important;
 }
@@ -10,3 +16,25 @@ body{
 .bg-dark {
     background-color: $app-bg !important;
 }
+
+.main-content{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .header{
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+  .content{
+    flex-shrink: 1;
+    flex-grow: 1;
+    position: relative;
+    // overflow-y: auto;
+  }
+  
+  .footer{
+    flex-shrink: 0;
+    flex-grow: 0;
+  }

@@ -8,10 +8,11 @@ import { PipesModule } from '../library/pipes/pipes.module';
 import { SharedComponentsModule } from '../library/shared-components/shared-components.module';
 import { DistrictDataModalComponent } from './district-data-modal/district-data-modal.component';
 import { FormsModule } from '@angular/forms';
+import { DataSourceComponent } from './data-source/data-source.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, DistrictDataModalComponent],
+  declarations: [HomeComponent, DistrictDataModalComponent, DataSourceComponent],
   imports: [
     CommonModule,
     ScreensRoutingModule,
