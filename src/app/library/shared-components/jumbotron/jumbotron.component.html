@@ -1,6 +1,7 @@
 <div class="jumbotron jumbotron-fluid text-white">
     <div class="container d-flex flex-column align-items-center">
-      <h1 class="display-4">Stay Home, Stay Safe!!</h1>
+      <h1 class="display-4">Stay Home,</h1>
+      <h1 class="display-4"> Stay Safe!!</h1>
       <p>
           <span>
             CORONA ( COVID 19 ) HELPLINE :  011-23978046 OR 1075 
@@ -13,7 +14,7 @@
     </div>
     <br><br>
     <div class="container-fluid" *ngIf="covidData?.states">
-        <div class="row d-sm-none d-xs-none d-md-block">
+        <div class="row states-names-wrapper">
             <div class="col-12 d-flex justify-content-center">
                 Select state to view COVID cases.
             </div>
@@ -26,8 +27,8 @@
                 </button>
             </div>
         </div>
-        <div class="row d-sm-block d-xs-block d-md-none">
-          <div class="col-6 offset-3">
+        <div class="row state-select-wrapper">
+          <div class="col-sm-12 col-md-6 offset-md-3">
             <form>
               <div class="form-group">
                 <label for="stateDropdown">Select state to view COVID cases.</label>

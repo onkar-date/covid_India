@@ -1,14 +1,21 @@
 <nav class="navbar navbar-expand-lg navbar-dark app-bg border-bottom">
-    <a class="navbar-brand" href="#">COVID-19</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/india">INDIA<span class="sr-only">(current)</span></a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <button class="no-style" (click)="showIndiaStats()">
+    <span class="navbar-brand">
+      COVID-19
+    </span>
+  </button>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <button class="no-style nav-link" (click)="showIndiaStats()">
+          All States<span class="sr-only">(current)</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -1,10 +1,47 @@
 .jumbotron{
     // background-color: #576b80 !important;
-    background-image: url('../../assets/images/jbg6.jpg');
+    background-image: url('../../assets/images/jbg9.jpg');
     background-size: cover;
     button{
         h5{
-            text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
+            text-shadow: 0px 0px 0px #9c9ba0, 0 0 1em #003346, 0 0 0.2em #003346;
         }
     }
+}
+
+.row.states-names-wrapper{
+    display: flex;
+}
+.row.state-select-wrapper{
+    display: none;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .row.states-names-wrapper{
+        display: none;
+    }
+    .row.state-select-wrapper{
+        display: block;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
 }
