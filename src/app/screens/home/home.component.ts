@@ -1,11 +1,10 @@
-import { AfterViewChecked, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { tableHelper } from 'src/app/shared/helpers/table.helper';
 import { covidMapper } from 'src/app/shared/mappers/covidData.mapper';
 import { CovidService } from './../../shared/services/corona-data.service';
 import { ICovidData, ITotal } from './../../shared/interfaces/covidData';
-import { DistrictDataModalComponent } from './../district-data-modal/district-data-modal.component';
 import { sortData } from './../../shared/helpers/sort.helper';
 
 @Component({
@@ -20,7 +19,8 @@ export class HomeComponent implements OnInit {
   pageSize = 10;
   modalRef: NgbModalRef;
   modalOptions: NgbModalOptions;
-  state = null;
+  state: string = null;
+  district: string = null;
   tableHeaders = [];
   tableRows = [];
   pieChartData: ITotal = null;
@@ -30,7 +30,6 @@ export class HomeComponent implements OnInit {
   searchKey = '';
   constructor(
     private covidService: CovidService,
-    private modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
@@ -39,6 +38,7 @@ export class HomeComponent implements OnInit {
       scrollable: true
     };
     this.state = this.activatedRoute.snapshot.params.state;
+    this.district = this.activatedRoute.snapshot.params.district;
     this.tableHeaders = tableHelper.getTableHeaders(this.state ? false : true);
     this.tableHeaders.forEach(_ => this.sortDirection.push('asc'));
   }
@@ -52,6 +52,10 @@ export class HomeComponent implements OnInit {
 
   initiate(): void {
     this.tableRows = this.getTableRows();
+    if (!this.tableRows.length) {
+      this.router.navigate([`../../404`], { relativeTo: this.activatedRoute });
+      return;
+    }
     this.pieChartData = this.getPieChartData();
     this.scrollToView();
   }
@@ -75,7 +79,9 @@ export class HomeComponent implements OnInit {
   }
 
   showStateData(selectedState): void {
-    if (this.state) {
+    if (this.district) {
+      this.router.navigate([`../../${selectedState}`], { relativeTo: this.activatedRoute});
+    } else if (this.state) {
       this.router.navigate([`../${selectedState}`], { relativeTo: this.activatedRoute});
     } else {
       this.router.navigate([`./${selectedState}`], { relativeTo: this.activatedRoute});
@@ -83,13 +89,22 @@ export class HomeComponent implements OnInit {
     this.state = selectedState;
     this.initiate();
     this.searchKey = '';
+    this.scrollToView();
     return;
   }
 
   showDistrictData(district): void {
-    this.modalRef = this.modalService.open(DistrictDataModalComponent);
-    this.modalRef.componentInstance.totals = district.totals;
-    this.modalRef.componentInstance.name = district.name;
+    let url = '';
+    if (this.district) {
+      url = `../${district.name}`;
+    } else {
+      url = `./${district.name}`;
+    }
+    this.district = district.name;
+    this.router.navigate([url], {
+      relativeTo: this.activatedRoute
+    });
+    this.scrollToView();
   }
 
   sort(sortBy, order, i): void {

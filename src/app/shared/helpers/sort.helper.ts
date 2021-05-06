@@ -13,7 +13,6 @@ export function sortData(rows: Array<any>, sortBy: string, order: string) {
         } else {
             const firstValue = Number( a.totals[sortBy.toLowerCase()]);
             const secondValue = Number(b.totals[sortBy.toLowerCase()]);
-            console.log(firstValue, secondValue);
             if (firstValue < secondValue) {
                 return order === 'asc' ? -1 : 1;
             }
@@ -23,5 +22,4 @@ export function sortData(rows: Array<any>, sortBy: string, order: string) {
             return 0;
         }
     });
-    console.log(count);
 }

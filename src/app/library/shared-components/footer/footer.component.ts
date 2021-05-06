@@ -22,4 +22,8 @@ export class FooterComponent implements OnInit {
   showSources(): void {
     this.router.navigate(['./sources']);
   }
+
+  showContactPage(): void {
+    this.router.navigate(['./contactUs']);
+  }
 }

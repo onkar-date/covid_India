@@ -4,11 +4,11 @@ class CovidMapper {
 
     mapData = (stateWiseData, stateDistrictWiseData): ICovidData => {
         const allStates = stateWiseData.statewise;
-        const states =  allStates.map(state => {
+        const states = allStates.map(state => {
             return {
                 name: state.state,
                 totals: getTotals(state),
-                districts : getStateDistricts(state.state, stateDistrictWiseData)
+                districts: getStateDistricts(state.state, stateDistrictWiseData)
             };
         });
         return {
@@ -36,17 +36,14 @@ function getStateDistricts(stateName, stateDistrictWiseData): Array<IDistrict> {
 }
 
 function getTotals(data): ITotal {
-    const factor = 'Active :- ' + (data.active / data.confirmed).toString() + ', ' +
-    'Recovered :- ' + (data.recovered / data.confirmed).toString() + ', ' +
-    'Deaths :- ' + (data.deaths / data.confirmed).toString();
-    const factor1 =( data.active / data.confirmed ) + (data.confirmed / 1000) + (1 - (data.recovered / data.confirmed)) + ((data.deaths / data.confirmed) * 2);
     return {
         confirmed: data.confirmed,
         active: data.active,
         recovered: data.recovered,
         deaths: data.deaths || data.deceased,
-        factor,
-        factor1
+        activePer: ((data.active / data.confirmed) * 100).toFixed(2) + '%',
+        recoveredPer: ((data.recovered / data.confirmed) * 100).toFixed(2) + '%',
+        deathsPer: (((data.deaths || data.deceased) / data.confirmed) * 100).toFixed(2) + '%'
     };
 }
 

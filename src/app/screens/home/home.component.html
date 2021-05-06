@@ -4,43 +4,21 @@
 </app-jumbotron>
 <div class="container-fluid">
 
-    <!-- Pie Chart -->
-    <div class="row p-3" id="mainView">
-        <div class="col-12 mb-3" *ngIf="pieChartData">
-            <h3 class="text-white">
-                {{state ? state : 'I N D I A'}}
-            </h3>
-            <div class="card border-0 stats-container">
-                <div class="row card-body d-flex">
-                    <div class="d-flex numeric-stats col-md-7">
-                        <div class="stat active d-flex flex-column border justify-content-around align-items-center">
-                            <h5>Active</h5>
-                            <h4>{{pieChartData.active | shortNumber}}</h4>
-                        </div>
-                        <div class="stat recovered d-flex flex-column border justify-content-around align-items-center">
-                            <h5>Recovered</h5>
-                            <h4>{{pieChartData.recovered | shortNumber}}</h4>
-                        </div>
-                        <div class="stat deaths d-flex flex-column border justify-content-around align-items-center">
-                            <h5>Deaths</h5>
-                            <h4>{{pieChartData.deaths | shortNumber}}</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <app-pie-chart [totals]="pieChartData">
-                        </app-pie-chart>
-                    </div>
-                    
-                </div>
-                
-            </div>
-        </div>
-    </div>
+    <!-- Stats Summary and Pie Chart -->
+    <app-stats-summary
+        *ngIf="covidData"
+        [countryData]="covidData"
+        [state]="state"
+        [district]="district">
+    </app-stats-summary>
 
     <!-- Search -->
-    <div class="row d-flex justify-content-end">
-        <div class="col-md-4 col-sm-12">
-            <input type="search" class="form-control rounded-pill" [(ngModel)]="searchKey" placeholder="search">
+    <div class="table-heading-container row">
+        <div class="col-sm-12 col-md-6">
+            <span class="text-white-50">Select name to view summarized data</span>
+        </div>
+        <div class="col-sm-12 col-md-6 d-flex justify-content-end mb-2">
+            <input type="search" class="form-control rounded-pill search-box" [(ngModel)]="searchKey" placeholder="search">
             <br>
         </div>
     </div>
@@ -48,7 +26,7 @@
     <!-- table -->
     <div class="row">
         <div class="col-12">
-            <table class="table table-striped table-light">
+            <table class="table table-responsive-sm table-striped table-light">
                 <thead>
                     <tr>
                         <th *ngFor="let header of tableHeaders; let i = index">
@@ -65,7 +43,7 @@
                     <tr *ngFor="let row of tableRows | search: searchKey | slice: (page-1) * pageSize : page * pageSize">
                         <ng-container>
                             <td>
-                                <button class="no-style text-primary" (click)="showDistrictData(row)">
+                                <button class="no-style" (click)="showDistrictData(row)">
                                     {{row.name}}
                                 </button>
                             </td>

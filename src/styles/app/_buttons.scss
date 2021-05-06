@@ -12,3 +12,14 @@ button.no-style{
     font-size: 1rem;
     line-height: 1.5;
 }
+
+.summary-section{
+    color: $white !important;
+    background: $app-bg !important;
+    border-top-left-radius: 0.25rem !important;
+    border-top-right-radius: 0.25rem !important;
+}
+
+.summary-section.active{
+    background: #3398c2 !important;
+}

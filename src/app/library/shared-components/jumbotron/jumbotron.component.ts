@@ -16,8 +16,6 @@ export class JumbotronComponent implements OnInit {
   }
 
   showStateData(state): void {
-    console.log(state);
-    
     this.showStateDataEvent.emit(state);
   }
 

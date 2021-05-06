@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ChartColor, ChartOptions, ChartType } from 'chart.js';
 import { Label, SingleDataSet, monkeyPatchChartJsTooltip, monkeyPatchChartJsLegend } from 'ng2-charts';
 import { chartMapper } from '../../../../shared/mappers/chart.mapper';
@@ -8,7 +8,7 @@ import { chartMapper } from '../../../../shared/mappers/chart.mapper';
   styles: [
   ]
 })
-export class PieChartComponent implements OnInit {
+export class PieChartComponent implements OnInit, OnChanges {
 
   public pieChartOptions: ChartOptions = {
     responsive: true,
@@ -31,8 +31,18 @@ export class PieChartComponent implements OnInit {
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
   }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.totals) {
+      this.setPieChartData();
+    }
+  }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.pieChartData = chartMapper.getPieChartData(this.totals);
+    this.pieChartLabels = chartMapper.getPieChartLabel();
+  }
+
+  setPieChartData(): void {
     this.pieChartData = chartMapper.getPieChartData(this.totals);
     this.pieChartLabels = chartMapper.getPieChartLabel();
   }

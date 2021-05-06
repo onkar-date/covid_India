@@ -1,0 +1,40 @@
+<div class="row p-3" id="mainView">
+    <div class="col-12 mb-3" *ngIf="pieChartData">
+        <div class="d-flex justify-content-center">
+            <button
+                class="summary-section no-style"
+                [class.active]="section.active"
+                (click)="showSummary(section)"
+                *ngFor="let section of summarySections">
+                {{section.name}}
+            </button>
+        </div>
+        <div class="card border-0 stats-container">
+            <div class="row card-body d-flex">
+                <div class="d-md-flex d-sm-block numeric-stats col-md-7">
+                    <div class="stat active d-flex flex-md-column border justify-content-around align-items-center">
+                        <span>Active</span>
+                        <span>{{pieChartData.active | shortNumber}}</span>
+                        <span>{{pieChartData.activePer}}</span>
+                    </div>
+                    <div class="stat recovered d-flex flex-md-column border justify-content-around align-items-center">
+                        <span>Recovered</span>
+                        <span>{{pieChartData.recovered | shortNumber}}</span>
+                        <span>{{pieChartData.recoveredPer}}</span>
+                    </div>
+                    <div class="stat deaths d-flex flex-md-column border justify-content-around align-items-center">
+                        <span>Deaths</span>
+                        <span>{{pieChartData.deaths | shortNumber}}</span>
+                        <span>{{pieChartData.deathsPer}}</span>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <app-pie-chart *ngIf="pieChartData" [totals]="pieChartData">
+                    </app-pie-chart>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>

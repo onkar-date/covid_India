@@ -19,6 +19,7 @@ export interface ITotal {
     recovered: number;
     deaths: number;
     active: number;
-    factor?: string | number;
-    factor1?: string | number;
+    activePer: string;
+    recoveredPer: string;
+    deathsPer: string;
 }
