@@ -1,3 +1,5 @@
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { VaccinationHomeComponent } from './vaccination-home/vaccination-home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from '../library/shared-components/page-not-found/page-not-found.component';
@@ -9,6 +11,14 @@ const routes: Routes = [
     path: '',
     redirectTo: 'india',
     pathMatch: 'full'
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
+  },
+  {
+    path: 'vaccination',
+    component: VaccinationHomeComponent
   },
   {
     path: 'india',

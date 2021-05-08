@@ -7,7 +7,13 @@ export class WrapperService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public async Api(method: string, url: string, params?: any, data?: any ): Promise<any> {
+  public async Api(method: string, url: string, covinAPi?: boolean, params?: any, data?: any): Promise<any> {
+    let httpOptions = null;
+    if (covinAPi) {
+      httpOptions = new HttpHeaders({
+        'Accept-Language': 'hi_IN'
+      });
+    }
     if (params) {
       return await this.httpClient.request(method, url, { body: data, params}).toPromise();
     } else {

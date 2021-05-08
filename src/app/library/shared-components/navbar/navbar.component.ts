@@ -20,4 +20,8 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/india']);
   }
 
+  goToAppointments(): void {
+    this.router.navigate(['/vaccination']);
+  }
+
 }

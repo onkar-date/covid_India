@@ -1,0 +1,91 @@
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form class="text-white">
+                
+
+                <div class="form-group">
+                    <label for="pincode">Pin Code</label>
+                    <input type="string" name="pincode" [(ngModel)]="pincode" class="form-control" id="pincode" aria-describedby="pincode">
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input
+                        (change)="formatDate($event.target.value)"
+                        type="date" 
+                        class="form-control" name="date" id="date" aria-describedby="date">
+                </div>
+                
+                <button class="btn btn-primary" type="button" (click)="getSessionByPin()">Get Vaccination</button>
+            </form>
+        </div>
+    </div>
+</div> -->
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12">
+            <ul ngbNav #nav="ngbNav" class="nav-tabs">
+                <li ngbNavItem>
+                    <a ngbNavLink>Find by Pincode</a>
+                    <ng-template ngbNavContent>
+                            <div class="container">
+                                <form>
+                                    <div class="form-row p-3">
+                                        <div class="form-group col-md-6">
+                                            <label for="pincode">Pin Code</label>
+                                            <input type="string" name="pincode" [(ngModel)]="pincode" class="form-control"
+                                                id="pincode" aria-describedby="pincode">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="date">Date</label>
+                                            <input (change)="formatDate($event.target.value)" type="date" class="form-control"
+                                                name="date" id="date" aria-describedby="date">
+                                        </div>
+                                        <div class="col-12 mt-2 d-flex justify-content-center">
+                                            <button role="button" class="btn btn-primary" (click)="findSessions( )">Find Sessions</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                    </ng-template>
+                </li>
+                <li ngbNavItem>
+                    <a ngbNavLink>Find by District</a>
+                    <ng-template ngbNavContent>
+                        <div class="container">
+                            <form class="p-3">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="stateDropdown">Select state</label>
+                                        <select class="form-control" id="stateDropdown" (change)="getDistricts($event.target.value)">
+                                            <option value="" disabled selected>-- Select State --</option>
+                                            <option [value]="state.state_id" *ngFor="let state of states">
+                                                {{state.state_name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                    
+                                    <div class="form-group col-md-6">
+                                        <label for="stateDropdown">Select District</label>
+                                        <select class="form-control" id="stateDropdown" (change)="null">
+                                            <option value="" disabled selected>-- Select District --</option>
+                                            <option [value]="district.district_id" *ngFor="let district of districts">
+                                                {{district.district_name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 mt-2 d-flex justify-content-center">
+                                        <button role="button" class="btn btn-primary" (click)="findSessions(false)">Find Sessions</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </ng-template>
+                </li>
+            </ul>
+            <div [ngbNavOutlet]="nav" class="bg-white"></div>
+        </div>
+    </div>
+</div>
