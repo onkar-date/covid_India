@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { WrapperService } from './wrapper.service';
 import { environment } from './../../../environments/environment';
-import { endpoints } from './../constants/urlConstant';
+import { endpoints, RootnetPrimary } from './../constants/urlConstant';
 import { ApiMethod } from './../constants/api';
 import { urlHelper } from '../helpers/url.helper';
+import { IDailyCases } from '../interfaces/dailyCases';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,13 @@ export class CovidService {
       endpoints.stateDistrictWise
     ]);
     return await this.wrapperService.Api(ApiMethod.GET, stateDistrictDataUrl);
+  }
+
+  async getDailyCasesIndia(): Promise<IDailyCases> {
+    const dailyCasesUrl = urlHelper.createUrl([
+      environment.variables.baseUrlRootnet,
+      RootnetPrimary.history
+    ]);
+    return await this.wrapperService.Api(ApiMethod.GET, dailyCasesUrl);
   }
 }

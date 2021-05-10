@@ -1,0 +1,28 @@
+<div class="wrapper">
+    <div class="sidebar">
+        <div class="d-flex p-3 border-bottom">
+            <span>COVID-19</span>
+        </div>
+        <ul class="nav mt-4">
+            <li *ngFor="let item of sidebarMenuItems" class="nav-item" role="button" (click)="routeToPage(item)">
+                <a class="nav-link" [class.active]="item.active">
+                    {{item.name}}
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="topnav header p-3 bg-white shadow d-flex">
+            <div class="toggle" role="button" (click)="toggleMenu()">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="main">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="footer mt-3 p-3 bg-white shadow">
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div>

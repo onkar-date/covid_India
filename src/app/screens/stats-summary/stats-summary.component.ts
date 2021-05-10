@@ -1,7 +1,8 @@
-import { statsSummaryMapper } from './../../shared/mappers/stats-summary.mapper';
-import { ITotal } from './../../shared/interfaces/covidData';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ITotal, ICovidData } from './../../shared/interfaces/covidData';
+import { Component, Input, OnInit } from '@angular/core';
+import { ChartDataSets } from 'chart.js';
+import { LineChartdata } from 'src/app/shared/constants/lineChart.constant';
+import { Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-stats-summary',
@@ -9,42 +10,23 @@ import { ActivatedRoute } from '@angular/router';
   styles: [
   ]
 })
-export class StatsSummaryComponent implements OnInit, OnChanges {
+export class StatsSummaryComponent implements OnInit {
 
-  @Input() countryData: Array<any>;
-  @Input() state;
-  @Input() district;
+  @Input() countryData: ICovidData;
+  @Input() monthWiseCases: Array<number>;
+  lineChartData: ChartDataSets[] = [
+    {
+      data: [],
+      label: LineChartdata.header
+    },
+  ];
+  lineChartLabels: Label[] = LineChartdata.labels;
   pieChartData: ITotal;
-  summarySections = null;
-  constructor() {
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    this.setSummarySections();
-  }
+  constructor() {}
 
   ngOnInit(): void {
-    this.setSummarySections();
-  }
-
-  setSummarySections(): void {
-    this.summarySections = statsSummaryMapper.getSummarySections(this.countryData, this.state, this.district);
-    this.setPiechartData();
-  }
-
-  showSummary(selectedSection): void {
-    this.summarySections.forEach(section => {
-      if (section.name === selectedSection.name) {
-        section.active = true;
-      } else {
-        section.active = false;
-      }
-    });
-    this.setPiechartData();
-  }
-
-  setPiechartData(): void {
-    this.pieChartData = null;
-    this.pieChartData = this.summarySections.find(section => section.active).totals;
+    this.pieChartData = this.countryData.totals;
+    this.lineChartData[0].data = this.monthWiseCases;
   }
 
 }

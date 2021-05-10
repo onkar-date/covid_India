@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JumbotronComponent } from './jumbotron.component';
+import { LineChartComponent } from './line-chart.component';
 
-describe('JumbotronComponent', () => {
-  let component: JumbotronComponent;
-  let fixture: ComponentFixture<JumbotronComponent>;
+describe('LineChartComponent', () => {
+  let component: LineChartComponent;
+  let fixture: ComponentFixture<LineChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ JumbotronComponent ]
+      declarations: [ LineChartComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(JumbotronComponent);
+    fixture = TestBed.createComponent(LineChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

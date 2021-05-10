@@ -1,3 +1,4 @@
+import { IDailyCases } from './../../shared/interfaces/dailyCases';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -19,104 +20,47 @@ export class HomeComponent implements OnInit {
   pageSize = 10;
   modalRef: NgbModalRef;
   modalOptions: NgbModalOptions;
-  state: string = null;
-  district: string = null;
   tableHeaders = [];
   tableRows = [];
   pieChartData: ITotal = null;
   covidData: ICovidData = null;
   sortDirection = [];
   stateNames: string[] = [];
+  dailyCases: IDailyCases;
+  monthWiseCases: number[] = [];
   searchKey = '';
   constructor(
-    private covidService: CovidService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
+    private covidService: CovidService
   ) {
     this.modalOptions = {
       size: 'xl',
       scrollable: true
     };
-    this.state = this.activatedRoute.snapshot.params.state;
-    this.district = this.activatedRoute.snapshot.params.district;
-    this.tableHeaders = tableHelper.getTableHeaders(this.state ? false : true);
+    this.tableHeaders = tableHelper.getTableHeaders(true);
     this.tableHeaders.forEach(_ => this.sortDirection.push('asc'));
   }
 
   async ngOnInit() {
     const stateWiseData = await this.covidService.getStateWiseData();
     const districtWiseData = await this.covidService.getStateDistrictWiseData();
+    this.dailyCases = await this.getDailyCases();
     this.covidData = covidMapper.mapData(stateWiseData, districtWiseData);
-    await this.initiate();
+    this.monthWiseCases = covidMapper.mapDailyCases(this.dailyCases);
+    this.initiate();
   }
 
   initiate(): void {
-    this.tableRows = this.getTableRows();
-    if (!this.tableRows.length) {
-      this.router.navigate([`../../404`], { relativeTo: this.activatedRoute });
-      return;
-    }
-    this.pieChartData = this.getPieChartData();
-    this.scrollToView();
+    this.tableRows = this.covidData.states;
+    this.pieChartData = this.covidData.totals;
   }
 
-  getTableRows(): Array<any> {
-    if (this.state) {
-      const selectedState = this.covidData.states.find(state => state.name === this.state);
-      return selectedState ? selectedState.districts : [];
-    } else {
-      return this.covidData.states;
-    }
-  }
-
-  getPieChartData(): ITotal {
-    if (this.state) {
-      const selectedState = this.covidData.states.find(state => state.name === this.state);
-      return selectedState.totals;
-    } else {
-      return this.covidData.totals;
-    }
-  }
-
-  showStateData(selectedState): void {
-    if (this.district) {
-      this.router.navigate([`../../${selectedState}`], { relativeTo: this.activatedRoute});
-    } else if (this.state) {
-      this.router.navigate([`../${selectedState}`], { relativeTo: this.activatedRoute});
-    } else {
-      this.router.navigate([`./${selectedState}`], { relativeTo: this.activatedRoute});
-    }
-    this.state = selectedState;
-    this.initiate();
-    this.searchKey = '';
-    this.scrollToView();
-    return;
-  }
-
-  showDistrictData(district): void {
-    let url = '';
-    if (this.district) {
-      url = `../${district.name}`;
-    } else {
-      url = `./${district.name}`;
-    }
-    this.district = district.name;
-    this.router.navigate([url], {
-      relativeTo: this.activatedRoute
-    });
-    this.scrollToView();
+  async getDailyCases(): Promise<IDailyCases> {
+    const res = await this.covidService.getDailyCasesIndia();
+    return res;
   }
 
   sort(sortBy, order, i): void {
     sortData(this.tableRows, sortBy, order);
     this.sortDirection[i] = order === 'asc' ? 'desc' : 'asc';
   }
-
-  scrollToView(): void {
-    const el: HTMLElement = document.getElementById('mainView');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', inline: 'nearest' });
-    }
-  }
-
 }

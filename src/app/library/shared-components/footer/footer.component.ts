@@ -12,8 +12,7 @@ export class FooterComponent implements OnInit {
 
   socialMedia: Array<any> = SocialMedia;
   constructor(
-    private router: Router,
-    private activateRoute: ActivatedRoute
+    private router: Router
   ) { }
 
   ngOnInit(): void {

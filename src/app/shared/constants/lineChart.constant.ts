@@ -1,0 +1,20 @@
+export const LineChartdata = {
+  labels: [
+    'Apr-20',
+    'May-20',
+    'Jun-20',
+    'Jul-20',
+    'Aug-20',
+    'Sep-20',
+    'Oct-20',
+    'Nov-20',
+    'Dec-20',
+    'Jan-21',
+    'Feb-21',
+    'Mar-21',
+    'Apr-21',
+  ],
+  header: 'Cases from 1st April,2020 to 31st April,2021',
+  startDate: '2020-04-01',
+  endDate: '2021-04-31',
+};

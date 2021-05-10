@@ -8,4 +8,6 @@ export class DynamicEnvironment {
 
 export interface IEnvironmentVariable {
     baseUrl: string;
+    baseUrlCovin: string;
+    baseUrlRootnet: string;
 }

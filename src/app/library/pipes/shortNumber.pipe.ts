@@ -13,15 +13,15 @@ export class ShortNumberPipe implements PipeTransform {
             }
             // thousands
             else if (value >= 1000 && value <= 99999) {
-                return checkDecimal(value / 1000) + 'K';
+                return checkDecimal(value / 1000) + ' K';
             }
             // lakhs
             else if (value >= 100000 && value <= 9999999) {
-                return checkDecimal(value / 100000) + 'L';
+                return checkDecimal(value / 100000) + ' L';
             }
             // crores
             else if (value >= 10000000 && value <= 99999999999) {
-                return checkDecimal(value / 10000000) + 'Cr';
+                return checkDecimal(value / 10000000) + ' Cr';
             }
             else {
                 return String(value);

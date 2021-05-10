@@ -12,8 +12,9 @@ export class PieChartComponent implements OnInit, OnChanges {
 
   public pieChartOptions: ChartOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     legend: {
-      position: 'left'
+      display: false
     }
   };
   @Input() totals;
@@ -24,7 +25,7 @@ export class PieChartComponent implements OnInit, OnChanges {
   pieChartPlugins = [];
   pieChartColors = [
     {
-      backgroundColor: ['#1ac2ed', '#b1e542', '#b0b2b3']
+      backgroundColor: ['#1ac2ed', '#b1e542', '#dc3545']
     },
   ];
   constructor() {

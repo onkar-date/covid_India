@@ -7,22 +7,29 @@ import { AppInitService } from './shared/services/app-init.service';
 import { ScreensModule } from './screens/screens.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './library/shared-components/navbar/navbar.component';
-import { FooterComponent } from './library/shared-components/footer/footer.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 export function init_app(appInitService: AppInitService): any {
   return () => appInitService.init();
 }
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    FooterComponent
+    NavbarComponent
   ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     AppRoutingModule,
     ScreensModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+      closeButton: true,
+      easing: 'ease-in'
+    })
   ],
   providers: [
     AppInitService,

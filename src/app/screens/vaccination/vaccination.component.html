@@ -1,0 +1,133 @@
+<div class="container-fluid mt-3">
+    <div class="row m-3">
+        <div class="col-12 card shadow p-0">
+            <div class="card-body">
+                <div class="card-title">
+                    <p>Find Vaccination Centers</p>
+                </div>
+                <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs vaccination-tabs">
+                    <li [ngbNavItem]="1">
+                        <a ngbNavLink>By Pincode</a>
+                        <ng-template ngbNavContent>
+                            <div class="border border-top-0 p-3">
+                                <form [formGroup]="sessionByPinForm">
+                                    <div class="form-row p-3">
+                                        <div class="form-group col-md-6">
+                                            <label for="pincode">
+                                                Pin Code&nbsp;<span class="text-danger">*</span>
+                                            </label>
+                                            <input formControlName="pincode" type="number" name="pincode" class="form-control"
+                                                id="pincode" aria-describedby="pincode">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="date">
+                                                Date&nbsp;<span class="text-danger">*</span>
+                                            </label>
+                                            <input formControlName="date" type="date" class="form-control"
+                                                name="date" id="date" aria-describedby="date">
+                                        </div>
+                                        <div class="col-12 mt-2 d-flex justify-content-center">
+                                            <button type="button" class="btn btn-primary" (click)="findSessionByPin()">Find Centers</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <ng-container>
+
+                                </ng-container>
+                            </div>
+                            
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="2">
+                        <a ngbNavLink>By District</a>
+                        <ng-template ngbNavContent>
+                            <div class="border border-top-0 p-3">
+                                <form class="p-3" [formGroup]="sessionByDistrictForm">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="stateDropdown">Select state</label>
+                                            <select formControlName="state" class="form-control" id="stateDropdown" (change)="getDistricts($event.target.value)">
+                                                <option value="" disabled selected>-- Select State --</option>
+                                                <option [value]="state.state_id" *ngFor="let state of states">
+                                                    {{state.state_name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                        
+                                        <div class="form-group col-md-6">
+                                            <label for="stateDropdown">Select District</label>
+                                            <select formControlName="district" class="form-control" id="stateDropdown" (change)="null">
+                                                <option value="" disabled selected>-- Select District --</option>
+                                                <option [value]="district.district_id" *ngFor="let district of districts">
+                                                    {{district.district_name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="date">Date</label>
+                                            <input formControlName="date" type="date" class="form-control"
+                                                name="date" id="date" aria-describedby="date">
+                                        </div>
+                                        <div class="col-12 mt-2 d-flex justify-content-center">
+                                            <button role="button" class="btn btn-primary" (click)="findSessionByDistrict()">Find Sessions</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </ng-template>
+                    </li>
+                </ul>
+    
+                <div [ngbNavOutlet]="nav" class="mt-2"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-3" *ngIf="sessions.length">
+        <div class="col-12 card shadow">
+            <div class="card-body">
+                <table class="covid-table table table-responsive-sm table-striped table-light">
+                    <thead>
+                        <th>Block</th>
+                        <th>Address</th>
+                        <th>Vaccine</th>
+                        <th>Fee</th>
+                        <th>Min. Age</th>
+                        <th>Slots</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let session of sessions | slice: (page-1) * pageSize : page * pageSize">
+                            <td>{{session.block_name}}</td>
+                            <td>{{session.name}}</td>
+                            <td>{{session.vaccine}}</td>
+                            <td>{{session.fee}}</td>
+                            <td>{{session.min_age_limit}}</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="p-0 m-0 no-style text-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      view slots..
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <ul>
+                                            <li class="dropdown-item" *ngFor="let slot of session.slots">
+                                                {{slot}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                  </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="mt-3 d-flex justify-content-end" *ngIf="sessions.length">
+                    <!-- <ngb-pagination [collectionSize]="sessions.length" [(page)]="page"></ngb-pagination> -->
+                    <ngb-pagination [collectionSize]="sessions.length" [(page)]="page" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #pin>
+    <h1>pin</h1>
+</ng-template>

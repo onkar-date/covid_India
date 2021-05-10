@@ -1,0 +1,15 @@
+.search-input{
+    width: 40%;
+    position: relative;
+    .fa-search{
+        position: absolute;
+        right: 1rem;
+        top: 0.7rem;
+    }
+}
+
+@media (max-width: 592px) {
+    .search-input{
+        width: 100%;
+    }
+}
