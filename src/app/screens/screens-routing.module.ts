@@ -26,7 +26,7 @@ const routes: Routes = [
         component: HomeComponent
       },
       {
-        path: 'vaccination',
+        path: 'vaccine',
         component: VaccinationComponent
       }
     ]

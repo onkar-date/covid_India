@@ -1,12 +1,15 @@
 <div class="wrapper">
     <div class="sidebar">
-        <div class="d-flex p-3 border-bottom">
-            <span>COVID-19</span>
+        <div class="d-flex header border-bottom">
+            <span class="laptop-header">COVID </span>
+            <span class="laptop-header">&nbsp;- INDIA</span>
+            <span class="mobile-header">C-19</span>
         </div>
         <ul class="nav mt-4">
             <li *ngFor="let item of sidebarMenuItems" class="nav-item" role="button" (click)="routeToPage(item)">
                 <a class="nav-link" [class.active]="item.active">
-                    {{item.name}}
+                    <i class="{{item.icon}}" aria-hidden="true"></i>
+                    <span>{{item.name}}</span>
                 </a>
             </li>
         </ul>

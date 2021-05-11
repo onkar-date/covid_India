@@ -2,21 +2,25 @@ export const SidebarMenuItem = [
   {
     name: 'Home',
     url: 'home',
+    icon: 'fa fa-home',
     active: true
   },
   {
-    name: 'State Wise Cases',
-    url: 'state-wise',
+    name: 'State',
+    url: 'state',
+    icon: 'fa fa-university',
     active: false
   },
   {
-    name: 'District Wise Cases',
-    url: 'district-wise',
+    name: 'District',
+    url: 'district',
+    icon: 'fa fa-building',
     active: false
   },
   {
-    name: 'Vaccination',
-    url: 'vaccination',
+    name: 'Vaccine',
+    url: 'vaccine',
+    icon: 'fa fa-heartbeat',
     active: false
   }
 ];
