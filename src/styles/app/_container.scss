@@ -21,6 +21,25 @@
     }
 }
 
+@media only screen and (max-width: 600px) {
+    .cases-table-wrapper{
+        .col-12{
+            padding: 0;
+            .card-body{
+                padding: 0;
+                .search-input{
+                    padding: 1rem;
+                    i{
+                        right: 2rem;
+                        top: 1.7rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 
 .page-not-found-wrapper{
     position: absolute;
