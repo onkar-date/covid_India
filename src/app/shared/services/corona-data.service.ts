@@ -5,6 +5,8 @@ import { endpoints, RootnetPrimary } from './../constants/urlConstant';
 import { ApiMethod } from './../constants/api';
 import { urlHelper } from '../helpers/url.helper';
 import { IDailyCases } from '../interfaces/dailyCases';
+import { Subject } from 'rxjs';
+import { CovidData } from '../classes/CovidData';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ import { IDailyCases } from '../interfaces/dailyCases';
 export class CovidService {
   constructor(
     private wrapperService: WrapperService
-  ) { }
+  ) {}
 
   async getStateWiseData(): Promise<any> {
     const stateDistrictDataUrl = urlHelper.createUrl([

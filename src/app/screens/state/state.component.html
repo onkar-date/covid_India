@@ -1,0 +1,42 @@
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <div class="card shadow">
+                <div class="card-body">
+                    <form *ngIf="covidData">
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label for="state">State</label>
+                                <select id="state" class="form-control" (change)="showStateSummary($event.target.value)">
+                                    <!-- <option value="" selected disabled>--Select State--</option> -->
+                                    <option [ngValue]="state" *ngFor="let state of covidData.states">
+                                        {{state.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12  mb-3" *ngIf="stateTotals">
+            <app-pie-chart-card
+                *ngIf="stateTotals"
+                [totals]="stateTotals"
+                [cardHeader]="selectedState.name">
+            </app-pie-chart-card>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 card shadow mt-3">
+            <div class="card-body">
+                <app-cases-table
+                    [tableHeaders]="tableHeaders"
+                    [tableRows]="tableRows"
+                    [placeholder]="'search by district'">
+                </app-cases-table>
+            </div>
+        </div>
+    </div>
+</div>

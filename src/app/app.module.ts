@@ -1,3 +1,4 @@
+import { CovidDataResolver } from './shared/services/covid-data-resolver';
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 
@@ -38,7 +39,8 @@ export function init_app(appInitService: AppInitService): any {
       useFactory: init_app,
       deps: [AppInitService],
       multi: true
-    }
+    },
+    CovidDataResolver
   ],
   bootstrap: [AppComponent]
 })

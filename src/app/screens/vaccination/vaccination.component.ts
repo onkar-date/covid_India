@@ -62,7 +62,6 @@ export class VaccinationComponent implements OnInit {
       const date = this.getFormatedDate(this.sessionByPinForm.value.date);
       const res: IVaccinationSession = await this.covinService.getVaccinationSessionByPin(pincode, date);
       this.sessions = res.sessions;
-      console.log(this.sessions);
     } else {
       this.toasterService.error('Please select all required fields');
     }
@@ -73,10 +72,8 @@ export class VaccinationComponent implements OnInit {
     if (this.sessionByDistrictForm.valid) {
       const districtId = this.sessionByDistrictForm.value.district;
       const date = this.getFormatedDate(this.sessionByDistrictForm.value.date);
-      console.log(districtId, date);
       const res: IVaccinationSession = await this.covinService.getVaccinationSessionByDistrict(districtId, date);
       this.sessions = res.sessions;
-      console.log(this.sessions);
     } else {
       this.toasterService.error('Please select all required fields');
     }

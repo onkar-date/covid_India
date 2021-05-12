@@ -8,6 +8,7 @@ $side-menu-mobile-size: 64px;
         position: fixed;
         width: 260px;
         height: 100%;
+        left: 0;
         overflow: hidden;
         background-color: #936cd5;
         transition: 0.5s;
@@ -38,7 +39,7 @@ $side-menu-mobile-size: 64px;
         }
     }
     .sidebar.active{
-        width: 0px;
+        left: -260px;
         transition: 0.5s;
     }
     .main-content{

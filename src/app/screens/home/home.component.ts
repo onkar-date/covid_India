@@ -1,12 +1,13 @@
 import { IDailyCases } from './../../shared/interfaces/dailyCases';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { tableHelper } from 'src/app/shared/helpers/table.helper';
-import { covidMapper } from 'src/app/shared/mappers/covidData.mapper';
 import { CovidService } from './../../shared/services/corona-data.service';
-import { ICovidData, ITotal } from './../../shared/interfaces/covidData';
-import { sortData } from './../../shared/helpers/sort.helper';
+import { ITotal, ICovidData } from './../../shared/interfaces/covidData';
+import { CovidData } from 'src/app/shared/classes/CovidData';
+import { Subscription } from 'rxjs';
+import { ClientStoreService } from 'src/app/shared/services/client-store.service';
 
 @Component({
   selector: 'app-home',
@@ -14,53 +15,52 @@ import { sortData } from './../../shared/helpers/sort.helper';
   styles: [
   ]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
-  page = 1;
-  pageSize = 10;
   modalRef: NgbModalRef;
   modalOptions: NgbModalOptions;
   tableHeaders = [];
   tableRows = [];
   pieChartData: ITotal = null;
-  covidData: ICovidData = null;
-  sortDirection = [];
-  stateNames: string[] = [];
+  covidData: ICovidData;
   dailyCases: IDailyCases;
-  monthWiseCases: number[] = [];
-  searchKey = '';
+  monthWiseCases: any;
+  covidDataSub: Subscription;
   constructor(
-    private covidService: CovidService
+    private covidService: CovidService,
+    private clientStore: ClientStoreService
   ) {
     this.modalOptions = {
       size: 'xl',
       scrollable: true
     };
     this.tableHeaders = tableHelper.getTableHeaders(true);
-    this.tableHeaders.forEach(_ => this.sortDirection.push('asc'));
+  }
+
+  ngOnDestroy(): void {
+    this.covidDataSub?.unsubscribe();
   }
 
   async ngOnInit() {
-    const stateWiseData = await this.covidService.getStateWiseData();
-    const districtWiseData = await this.covidService.getStateDistrictWiseData();
-    this.dailyCases = await this.getDailyCases();
-    this.covidData = covidMapper.mapData(stateWiseData, districtWiseData);
-    this.monthWiseCases = covidMapper.mapDailyCases(this.dailyCases);
+    await this.getData();
     this.initiate();
+  }
+
+  async getData(): Promise<void> {
+    await this.getDataFromCache();
+  }
+
+  async getDataFromCache() {
+    const data = await this.clientStore.getItem('covidData');
+    if (data) {
+      this.covidData = data.covidData;
+      this.dailyCases = data.dailyCasesData;
+      this.monthWiseCases = data.monthwiseCases;
+    }
   }
 
   initiate(): void {
     this.tableRows = this.covidData.states;
     this.pieChartData = this.covidData.totals;
-  }
-
-  async getDailyCases(): Promise<IDailyCases> {
-    const res = await this.covidService.getDailyCasesIndia();
-    return res;
-  }
-
-  sort(sortBy, order, i): void {
-    sortData(this.tableRows, sortBy, order);
-    this.sortDirection[i] = order === 'asc' ? 'desc' : 'asc';
   }
 }

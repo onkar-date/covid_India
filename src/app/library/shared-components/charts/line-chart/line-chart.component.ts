@@ -17,7 +17,7 @@ export class LineChartComponent implements OnInit {
   public lineChartColors: Color[] = [
     {
       borderColor: 'black',
-      backgroundColor: '#1ac2ed',
+      backgroundColor: '#1ac2ed6e',
     },
   ];
   public lineChartType = 'line';
@@ -26,7 +26,6 @@ export class LineChartComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.lineChartLabels);
   }
 
 }

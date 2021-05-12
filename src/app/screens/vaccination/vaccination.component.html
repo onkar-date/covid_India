@@ -16,18 +16,18 @@
                                             <label for="pincode">
                                                 Pin Code&nbsp;<span class="text-danger">*</span>
                                             </label>
-                                            <input formControlName="pincode" type="number" name="pincode" class="form-control"
+                                            <input required formControlName="pincode" type="number" name="pincode" class="form-control"
                                                 id="pincode" aria-describedby="pincode">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="date">
                                                 Date&nbsp;<span class="text-danger">*</span>
                                             </label>
-                                            <input formControlName="date" type="date" class="form-control"
+                                            <input required formControlName="date" type="date" class="form-control"
                                                 name="date" id="date" aria-describedby="date">
                                         </div>
                                         <div class="col-12 mt-2 d-flex justify-content-center">
-                                            <button type="button" class="btn btn-primary" (click)="findSessionByPin()">Find Centers</button>
+                                            <button type="submit" class="btn btn-primary" (click)="findSessionByPin()">Find Centers</button>
                                         </div>
                                     </div>
                                 </form>

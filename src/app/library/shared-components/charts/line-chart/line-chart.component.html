@@ -6,13 +6,8 @@
       [colors]="lineChartColors"
       [legend]="lineChartLegend"
       [chartType]="lineChartType"
-      [plugins]="lineChartPlugins">
+      [plugins]="lineChartPlugins"
+      [gradient]="true">
     </canvas>
   </div>
   <ng-template #elseBlock>No Data Available.</ng-template>
-  
-  <!-- code below for testing purposes -->
-  <!-- <hr> -->
-  <!-- <button (click)="lineChartData = undefined">Click Here to set lineChartData to undefined</button><br>
-  <button (click)="lineChartData = []">Click Here to set lineChartData to whole empty</button><br>
-  <button (click)="lineChartData = [{data:[65,59,80,81,56,55,40],label:'Series A'}]">Click here to restore lineChartData</button> -->
