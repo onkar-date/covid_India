@@ -22,6 +22,9 @@ class CovidDataHelper {
 
   getTotals = (data): ITotal => {
     return {
+      deltaconfirmed: data.deltaconfirmed,
+      deltarecovered: data.deltarecovered,
+      deltadeaths: data.deltadeaths,
       confirmed: data.confirmed,
       active: data.active,
       recovered: data.recovered,

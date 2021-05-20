@@ -1,9 +1,9 @@
 <div class="container-fluid mt-3">
     <div class="row">
-        <div class="col-md-5 mb-2">
+        <div class="col-12 mb-2">
             <app-pie-chart-card *ngIf="pieChartData" [totals]="pieChartData" [cardHeader]="'Total Cases in India'"></app-pie-chart-card>
         </div>
-        <div class="col-md-7 mb-2">
+        <div class="col-12 mb-2">
             <div class="card shadow">
                 <app-line-chart
                 *ngIf="lineChartData[0].data.length"

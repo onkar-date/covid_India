@@ -1,45 +1,63 @@
-<div class="card h-100 shadow summary-pie-chart-card">
-    <div class="card-title pt-2 m-2">
-        <h5>{{cardHeader}}</h5>
-        <span>Total Cases - {{totals.confirmed | shortNumber}}</span>
-    </div>
-    <div class="card-body d-flex flex-column justify-content-between">
-        <app-pie-chart *ngIf="totals" [totals]="totals">
-        </app-pie-chart>
-        <div class="mt-4">
-            <div>
-                <div class="d-flex justify-content-between ">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="active"></div>
-                    <span>Active</span>
-                    <span class="ml-2">({{totals.activePer}})</span>
+ <div class="card h-100 shadow summary-pie-chart-card">
+    <div class="card-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="mb-3">
+                        <h5>{{cardHeader}}</h5>
+                        <p>
+                            Total Cases - {{totals.confirmed | shortNumber}}
+                            <span class="text-success">
+                                (+{{totals.deltaconfirmed | shortNumber}})
+                            </span>
+                        </p>
                     </div>
-                    <span>
-                        {{totals.active | shortNumber}}
-                    </span>
-                    
+                    <app-pie-chart *ngIf="totals" [totals]="totals">
+                    </app-pie-chart>
                 </div>
-                <div class="d-flex justify-content-between ">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="recovered"></div>
-                    <span>Recovered</span>
-                    <span class="ml-2">({{totals.recoveredPer}})</span>
+                
+                <div class="summary-wrapper col-md-7">
+                    <div class="summary-section active">
+                        <h6>Active</h6>
+                        <span>
+                            {{totals.active | shortNumber}}
+                        </span>
+                        <span>
+                            {{totals.activePer}}
+                        </span>
                     </div>
-                    <span>
-                        {{totals.recovered | shortNumber}}
-                    </span>
-                </div>
-                <div class="d-flex justify-content-between ">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="deaths"></div>
-                    <span>Deaths</span>
-                    <span class="ml-2">({{totals.deathsPer}})</span>
+                    <div class="summary-section recovered">
+                        <h6>Recovered</h6>
+                        <p>
+                            <span>
+                                {{totals.recovered | shortNumber}}
+                            </span>
+                            <span class="text-success">
+                                (+{{totals.deltarecovered | shortNumber}})
+                            </span>
+                        </p>
+                        
+                        <span>
+                            {{totals.recoveredPer}}
+                        </span>
                     </div>
-                    <span>
-                        {{totals.deaths | shortNumber}}
-                    </span>
+                    <div class="summary-section deaths">
+                        <h6>Deaths</h6>
+                        <p>
+                            <span>
+                                {{totals.deaths | shortNumber}}
+                            </span>
+                            <span class="text-danger">
+                                (+{{totals.deltadeaths | shortNumber}})
+                            </span>
+                        </p>
+                        <span>
+                            {{totals.deathsPer}}
+                        </span>
+                    </div>
                 </div>
             </div>
+            
         </div>
     </div>
 </div>

@@ -15,6 +15,9 @@ export interface IDistrict {
 }
 
 export interface ITotal {
+    deltaconfirmed: number;
+    deltarecovered: number;
+    deltadeaths: number;
     confirmed: number;
     recovered: number;
     deaths: number;
