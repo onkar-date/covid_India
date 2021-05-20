@@ -26,14 +26,16 @@ export class CovidDataResolver implements Resolve<CovidData> {
   async setData(): Promise<CovidData> {
     const dataFromCache = await this.clientStore.getItem('covidData');
     if (dataFromCache?.covidData) {
-      return dataFromCache;
+      if (new Date().toISOString().split('T')[0] === dataFromCache.date) {
+        return dataFromCache;
+      }
     }
     const stateWiseData = await this.covidService.getStateWiseData();
     const districtWiseData = await this.covidService.getStateDistrictWiseData();
     this.dailyCases = await this.covidService.getDailyCasesIndia();
     this.covidData = covidMapper.mapData(stateWiseData, districtWiseData);
     this.monthWiseCases = covidMapper.mapDailyCases(this.dailyCases);
-    const covidObj = new CovidData(this.covidData, this.dailyCases, this.monthWiseCases);
+    const covidObj = new CovidData(this.covidData, this.dailyCases, this.monthWiseCases, new Date().toISOString().split('T')[0]);
     await this.clientStore.setItem('covidData', covidObj);
     return covidObj;
   }
