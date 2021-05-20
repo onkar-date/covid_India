@@ -19,14 +19,15 @@ export class VaccinationComponent implements OnInit {
   active = 1;
   sessionByPinForm: FormGroup;
   sessionByDistrictForm: FormGroup;
+  formSubmitted = false;
   constructor(
     private covinService: CovinService,
     private formBuilder: FormBuilder,
     private toasterService: ToasterService
   ) {
     this.sessionByPinForm = this.formBuilder.group({
-      pincode: ['792122', Validators.required],
-      date: ['2021-05-10', Validators.required]
+      pincode: ['', Validators.required],
+      date: ['', Validators.required]
     });
 
     this.sessionByDistrictForm = this.formBuilder.group({
@@ -62,6 +63,7 @@ export class VaccinationComponent implements OnInit {
       const date = this.getFormatedDate(this.sessionByPinForm.value.date);
       const res: IVaccinationSession = await this.covinService.getVaccinationSessionByPin(pincode, date);
       this.sessions = res.sessions;
+      this.formSubmitted = true;
     } else {
       this.toasterService.error('Please select all required fields');
     }
@@ -74,9 +76,11 @@ export class VaccinationComponent implements OnInit {
       const date = this.getFormatedDate(this.sessionByDistrictForm.value.date);
       const res: IVaccinationSession = await this.covinService.getVaccinationSessionByDistrict(districtId, date);
       this.sessions = res.sessions;
+      this.formSubmitted = true;
     } else {
       this.toasterService.error('Please select all required fields');
     }
   }
 
 }
+

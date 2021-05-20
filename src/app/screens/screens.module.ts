@@ -12,6 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { VaccinationComponent } from './vaccination/vaccination.component';
 import { StateComponent } from './state/state.component';
 import { DistrictComponent } from './district/district.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -28,7 +29,9 @@ import { DistrictComponent } from './district/district.component';
     ScreensRoutingModule,
     PipesModule,
     SharedComponentsModule,
-    NgbNavModule
+    NgbNavModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
 })
 export class ScreensModule { }

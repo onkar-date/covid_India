@@ -88,3 +88,23 @@
         font-size: 2vw;
     }
 }
+
+
+// vaccination
+
+.session-table{
+    display: block;
+}
+.session-cards{
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    .session-table{
+        display: none;
+    }
+    .session-cards{
+        display: block;
+    }
+}
+

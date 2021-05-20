@@ -7,7 +7,7 @@
                         <h5>{{cardHeader}}</h5>
                         <p>
                             Total Cases - {{totals.confirmed | shortNumber}}
-                            <span class="text-success">
+                            <span class="text-success" *ngIf="totals.deltaconfirmed != 0">
                                 (+{{totals.deltaconfirmed | shortNumber}})
                             </span>
                         </p>
@@ -32,7 +32,7 @@
                             <span>
                                 {{totals.recovered | shortNumber}}
                             </span>
-                            <span class="text-success">
+                            <span class="text-success"  *ngIf="totals.deltarecovered != 0">
                                 (+{{totals.deltarecovered | shortNumber}})
                             </span>
                         </p>
@@ -47,7 +47,7 @@
                             <span>
                                 {{totals.deaths | shortNumber}}
                             </span>
-                            <span class="text-danger">
+                            <span class="text-danger"  *ngIf="totals.deltadeaths != 0">
                                 (+{{totals.deltadeaths | shortNumber}})
                             </span>
                         </p>
