@@ -204,8 +204,13 @@
                             </div>
                         </div>
                         <div class="col-12 d-flex justify-content-end mt-2">
-                            <ngb-pagination [collectionSize]="sessions.length" [(page)]="page" [maxSize]="5"
-                                [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+                            <ngb-pagination
+                                [collectionSize]="sessions.length"
+                                [(page)]="page" size="sm"
+                                [maxSize]="3"
+                                [rotate]="true"
+                                [boundaryLinks]="true">
+                            </ngb-pagination>
                         </div>
                     </div>
                 </div>
