@@ -108,3 +108,21 @@
     }
 }
 
+// Home
+@media only screen and (max-width: 768px) {
+    .home-table-wrapper.container-fluid{
+        .card{
+            padding: 0;
+            .card-body{
+                padding: 0;
+                .search-input{
+                    padding: 1rem;
+                    i{
+                        right: 1.8rem;
+                        top: 1.5rem;
+                    }
+                }
+            }
+        }
+    }
+}
