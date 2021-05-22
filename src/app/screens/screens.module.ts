@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ScreensRoutingModule } from './screens-routing.module';
 import { HomeComponent } from './home/home.component';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { PipesModule } from '../library/pipes/pipes.module';
 import { SharedComponentsModule } from '../library/shared-components/shared-components.module';
 import { DataSourceComponent } from './data-source/data-source.component';
@@ -31,7 +31,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SharedComponentsModule,
     NgbNavModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbPaginationModule
   ],
 })
 export class ScreensModule { }
