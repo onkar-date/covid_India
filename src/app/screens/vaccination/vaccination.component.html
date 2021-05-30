@@ -97,7 +97,7 @@
                             <th>Address</th>
                             <th>Vaccine</th>
                             <th>Fee</th>
-                            <th class="text-center">Min. Age</th>
+                            <th class="text-center">Age</th>
                             <th class="text-center">Dose Capacity</th>
                             <th class="text-center">Dose 1</th>
                             <th class="text-center">Dose 2</th>
@@ -110,13 +110,13 @@
                                 <td>{{session.vaccine}}</td>
                                 <td>
                                     <ng-container *ngIf="session.fee != 0; else free">
-                                        {{session.fee}}
+                                        {{session.fee | currency : 'INR'}}
                                     </ng-container>
                                     <ng-template #free>
                                         <span class="text-success">Free</span>
                                     </ng-template>
                                 </td>
-                                <td class="text-center">{{session.min_age_limit}}</td>
+                                <td class="text-center">{{session.min_age_limit}}+</td>
                                 <td class="text-center">
                                     {{session.available_capacity}}
                                 </td>
@@ -177,8 +177,8 @@
                                         </ng-template>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <span>Min Age</span>
-                                        <span>{{session.min_age_limit}}</span>
+                                        <span>Age</span>
+                                        <span>{{session.min_age_limit}}+</span>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <span>Available Dose</span>
