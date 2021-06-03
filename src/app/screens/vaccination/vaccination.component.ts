@@ -1,8 +1,9 @@
 import { Session, IVaccinationSession } from './../../shared/interfaces/session';
 import { ToasterService } from './../../shared/services/toaster.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CovinService } from 'src/app/shared/services/covin-service.service';
+import { ClientStoreService } from 'src/app/shared/services/client-store.service';
 
 @Component({
   selector: 'app-vaccination',
@@ -10,7 +11,7 @@ import { CovinService } from 'src/app/shared/services/covin-service.service';
   styles: [
   ]
 })
-export class VaccinationComponent implements OnInit {
+export class VaccinationComponent implements OnInit, OnDestroy {
   page = 1;
   pageSize = 10;
   states = [];
@@ -23,7 +24,8 @@ export class VaccinationComponent implements OnInit {
   constructor(
     private covinService: CovinService,
     private formBuilder: FormBuilder,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    private clientStore: ClientStoreService
   ) {
     this.sessionByPinForm = this.formBuilder.group({
       pincode: ['', Validators.required],
@@ -37,8 +39,16 @@ export class VaccinationComponent implements OnInit {
     });
   }
 
+  async ngOnDestroy() {
+    await this.removeFromCache();
+  }
+
   async ngOnInit() {
     this.states = await this.getStates();
+    this.sessions = await this.clientStore.getItem('slots');
+    if (!this.sessions?.length) {
+      this.sessions = [];
+    } 
   }
 
   async getStates(): Promise<Array<any>> {
@@ -57,6 +67,7 @@ export class VaccinationComponent implements OnInit {
   }
 
   async findSessionByPin() {
+    await this.removeFromCache();
     this.sessions = [];
     if (this.sessionByPinForm.valid) {
       const pincode = this.sessionByPinForm.value.pincode;
@@ -64,6 +75,7 @@ export class VaccinationComponent implements OnInit {
       const res: IVaccinationSession = await this.covinService.getVaccinationSessionByPin(pincode, date);
       this.sessions = res.sessions;
       this.formSubmitted = true;
+      await this.addToCache();
     } else {
       this.toasterService.error('Please select all required fields');
     }
@@ -77,9 +89,25 @@ export class VaccinationComponent implements OnInit {
       const res: IVaccinationSession = await this.covinService.getVaccinationSessionByDistrict(districtId, date);
       this.sessions = res.sessions;
       this.formSubmitted = true;
+      await this.addToCache();
     } else {
       this.toasterService.error('Please select all required fields');
     }
+  }
+
+  bookSlot(): void {
+    window.open('https://www.cowin.gov.in/home', '_blank');
+    return;
+  }
+
+  async addToCache() {
+    console.log('added');
+    
+    await this.clientStore.setItem('slots', this.sessions);
+  }
+
+  async removeFromCache() {
+    await this.clientStore.removeItem('slots');
   }
 
 }

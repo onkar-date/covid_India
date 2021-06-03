@@ -101,7 +101,8 @@
                             <th class="text-center">Dose Capacity</th>
                             <th class="text-center">Dose 1</th>
                             <th class="text-center">Dose 2</th>
-                            <th>Slots</th>
+                            <th class="text-center">Slots</th>
+                            <th class="text-center">Booking</th>
                         </thead>
                         <tbody>
                             <tr *ngFor="let session of sessions | slice: (page-1) * pageSize : page * pageSize">
@@ -126,7 +127,7 @@
                                 <td class="text-center">
                                     {{session.available_capacity_dose2}}
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <div class="dropdown">
                                         <button class="p-0 m-0 no-style text-primary" type="button"
                                             id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
@@ -141,6 +142,11 @@
                                             </ul>
                                         </div>
                                     </div>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-success" (click)="bookSlot()">
+                                        Book
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -200,6 +206,9 @@
                                             {{slot}}
                                         </li>
                                     </ul>
+                                    <button class="btn btn-block btn-success" (click)="bookSlot()">
+                                        Book
+                                    </button>
                                 </div>
                             </div>
                         </div>
