@@ -1,5 +1,5 @@
 <div class="container-fluid mt-3">
-    <div class="row m-3">
+    <div class="row mx-0">
         <div class="col-12 card shadow p-0">
             <div class="card-body">
                 <div class="card-title">
@@ -87,8 +87,8 @@
             </div>
         </div>
     </div>
-    <div class="row m-3">
-        <div class="col-12 card shadow" *ngIf="sessions.length; else noSessions">
+    <div class="row mx-0">
+        <div class="col-12 m-0 mt-2 card shadow" *ngIf="sessions.length; else noSessions">
             <div class="card-body px-0">
                 <div class="session-table">
                     <table class="covid-table table table-striped table-light">
@@ -98,7 +98,6 @@
                             <th>Vaccine</th>
                             <th>Fee</th>
                             <th class="text-center">Age</th>
-                            <th class="text-center">Dose Capacity</th>
                             <th class="text-center">Dose 1</th>
                             <th class="text-center">Dose 2</th>
                             <th class="text-center">Slots</th>
@@ -118,9 +117,6 @@
                                     </ng-template>
                                 </td>
                                 <td class="text-center">{{session.min_age_limit}}+</td>
-                                <td class="text-center">
-                                    {{session.available_capacity}}
-                                </td>
                                 <td class="text-center">
                                     {{session.available_capacity_dose1}}
                                 </td>
@@ -187,10 +183,6 @@
                                         <span>{{session.min_age_limit}}+</span>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <span>Available Dose</span>
-                                        <span>{{session.available_capacity}}</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
                                         <span>Dose 1</span>
                                         <span>{{session.available_capacity_dose1}}</span>
                                     </div>
@@ -229,7 +221,7 @@
 </div>
 
 <ng-template #noSessions>
-    <div class="col-12 card shadow" *ngIf="formSubmitted">
+    <div class="col-12 mt-2 card shadow" *ngIf="formSubmitted">
         <div class="card-body px-0 text-center text-danger">
             <h6>
                 No session data found..!

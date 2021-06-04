@@ -3,7 +3,6 @@ import { ToasterService } from './../../shared/services/toaster.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CovinService } from 'src/app/shared/services/covin-service.service';
-import { ClientStoreService } from 'src/app/shared/services/client-store.service';
 
 @Component({
   selector: 'app-vaccination',
@@ -24,8 +23,7 @@ export class VaccinationComponent implements OnInit {
   constructor(
     private covinService: CovinService,
     private formBuilder: FormBuilder,
-    private toasterService: ToasterService,
-    private clientStore: ClientStoreService
+    private toasterService: ToasterService
   ) {
     this.sessionByPinForm = this.formBuilder.group({
       pincode: ['', Validators.required],
@@ -40,11 +38,7 @@ export class VaccinationComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.states = await this.getStates();
-    this.sessions = await this.clientStore.getItem('slots');
-    if (!this.sessions?.length) {
-      this.sessions = [];
-    } 
+    this.states = await this.getStates(); 
   }
 
   async getStates(): Promise<Array<any>> {
