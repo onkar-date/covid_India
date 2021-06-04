@@ -1,6 +1,6 @@
 import { Session, IVaccinationSession } from './../../shared/interfaces/session';
 import { ToasterService } from './../../shared/services/toaster.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CovinService } from 'src/app/shared/services/covin-service.service';
 import { ClientStoreService } from 'src/app/shared/services/client-store.service';
@@ -11,7 +11,7 @@ import { ClientStoreService } from 'src/app/shared/services/client-store.service
   styles: [
   ]
 })
-export class VaccinationComponent implements OnInit, OnDestroy {
+export class VaccinationComponent implements OnInit {
   page = 1;
   pageSize = 10;
   states = [];
@@ -39,10 +39,6 @@ export class VaccinationComponent implements OnInit, OnDestroy {
     });
   }
 
-  async ngOnDestroy() {
-    await this.removeFromCache();
-  }
-
   async ngOnInit() {
     this.states = await this.getStates();
     this.sessions = await this.clientStore.getItem('slots');
@@ -67,7 +63,6 @@ export class VaccinationComponent implements OnInit, OnDestroy {
   }
 
   async findSessionByPin() {
-    await this.removeFromCache();
     this.sessions = [];
     if (this.sessionByPinForm.valid) {
       const pincode = this.sessionByPinForm.value.pincode;
@@ -75,7 +70,6 @@ export class VaccinationComponent implements OnInit, OnDestroy {
       const res: IVaccinationSession = await this.covinService.getVaccinationSessionByPin(pincode, date);
       this.sessions = res.sessions;
       this.formSubmitted = true;
-      await this.addToCache();
     } else {
       this.toasterService.error('Please select all required fields');
     }
@@ -89,26 +83,14 @@ export class VaccinationComponent implements OnInit, OnDestroy {
       const res: IVaccinationSession = await this.covinService.getVaccinationSessionByDistrict(districtId, date);
       this.sessions = res.sessions;
       this.formSubmitted = true;
-      await this.addToCache();
     } else {
       this.toasterService.error('Please select all required fields');
     }
   }
 
   bookSlot(): void {
-    window.open('https://www.cowin.gov.in/home', '_blank');
+    window.open('https://www.cowin.gov.in', '_blank');
     return;
   }
-
-  async addToCache() {
-    console.log('added');
-    
-    await this.clientStore.setItem('slots', this.sessions);
-  }
-
-  async removeFromCache() {
-    await this.clientStore.removeItem('slots');
-  }
-
 }
 
