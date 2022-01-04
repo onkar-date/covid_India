@@ -11,9 +11,13 @@ export class WrapperService {
     let httpOptions = null;
     if (csvRes) {
       httpOptions = {
-        headers: new HttpHeaders({Accept: 'text/csv'}),
+        headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'}),
         responseType: 'text'
       };
+    } else {
+      httpOptions = {
+        headers: new HttpHeaders({'Access-Control-Allow-Credentials': 'true'})
+      }
     }
     if (params) {
       return await this.httpClient.request(method, url, { body: data, params, headers: httpOptions}).toPromise();
