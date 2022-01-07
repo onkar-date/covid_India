@@ -1,5 +1,4 @@
 import { CovidDataResolver } from './../shared/services/covid-data-resolver';
-import { DistrictComponent } from './district/district.component';
 import { StateComponent } from './state/state.component';
 import { VaccinationComponent } from './vaccination/vaccination.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -36,10 +35,6 @@ const routes: Routes = [
       {
         path: 'state',
         component: StateComponent
-      },
-      {
-        path: 'district',
-        component: DistrictComponent
       }
     ]
   },

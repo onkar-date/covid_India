@@ -36,7 +36,6 @@ class CovidDataHelper {
   }
 
   getDailyCases = (data: IDailyData[]): Array<number> => {
-
     const startingDate = LineChartdata.startDate;
     const endDate = LineChartdata.endDate;
     const arr = [];
@@ -45,14 +44,18 @@ class CovidDataHelper {
     data.forEach(eachDate => {
       if (new Date(eachDate.day) <= new Date(endDate) && new Date(eachDate.day) >= new Date(startingDate)) {
         if (eachDate.day.includes(currentMonth)) {
-          total += eachDate.summary.confirmedCasesIndian;
+          total = eachDate.summary.confirmedCasesIndian;
         } else {
           currentMonth = eachDate.day.split('-').slice(0, 2).join('-');
+          if (currentMonth.includes('2021-08')) { // for missing July month data (remove when data is available)
+            arr.push(total);
+          }
           arr.push(total);
           total = 0;
         }
       }
     });
+    arr.push(total);
     return arr;
   }
 
