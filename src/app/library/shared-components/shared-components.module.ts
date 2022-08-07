@@ -1,6 +1,5 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from './../pipes/pipes.module';
-import { FooterComponent } from './footer/footer.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,10 +17,9 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     PlaceholderComponent,
     PieChartComponent,
     PageNotFoundComponent,
-    FooterComponent,
     LineChartComponent,
     PieChartCardComponent,
-    CasesTableComponent
+    CasesTableComponent,
   ],
   imports: [
     CommonModule,
@@ -30,14 +28,13 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     PipesModule,
     FormsModule,
     NgbPaginationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [
     PlaceholderComponent,
-    FooterComponent,
     LineChartComponent,
     PieChartCardComponent,
-    CasesTableComponent
-  ]
+    CasesTableComponent,
+  ],
 })
-export class SharedComponentsModule { }
+export class SharedComponentsModule {}

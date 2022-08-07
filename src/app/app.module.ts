@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { AppInitService } from './shared/services/app-init.service';
 import { ScreensModule } from './screens/screens.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NavbarComponent } from './library/shared-components/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 export function init_app(appInitService: AppInitService): any {
@@ -15,8 +14,7 @@ export function init_app(appInitService: AppInitService): any {
 }
 @NgModule({
   declarations: [
-    AppComponent,
-    NavbarComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
